@@ -30,11 +30,11 @@ func (l Location) Point() *geo.Point {
 }
 
 type Lobby struct {
-	ID, Name, Creator        string
-	Hidden, RequiresPassword bool
-	Location                 *Location
-	Distance                 float64
-	People, Capacity         int
+	ID, Name, Creator, Service string
+	Hidden, RequiresPassword   bool
+	Location                   *Location
+	Distance                   float64
+	People, Capacity           int
 
 	client *rpc2.Client
 }
@@ -99,9 +99,7 @@ func (s *Server) disconnect(client *rpc2.Client) {
 
 // ConnectLobbyRequest represents a request to connect to a lobby.
 type ConnectLobbyRequest struct {
-	ID       string
-	Offer    string
-	Password string
+	ID, Offer, Password string
 }
 
 // ConnectLobbyResponse represents the response to a connect request.
@@ -122,6 +120,7 @@ func (s *Server) connectLobby(client *rpc2.Client, req *ConnectLobbyRequest, res
 
 // ListLobbyRequest represents a request to list all available lobbies by location.
 type ListLobbyRequest struct {
+	Service  string
 	Location *Location
 }
 
@@ -136,16 +135,17 @@ func (s *Server) listLobby(client *rpc2.Client, req *ListLobbyRequest, resp *Lis
 	defer s.lobbiesLock.RUnlock()
 	var lobbies []*Lobby
 	for _, lobby := range s.lobbies {
-		if lobby.Hidden {
+		if lobby.Hidden || lobby.Service != req.Service {
 			continue
 		}
 		l := *lobby
-		if req.Location != nil {
+		if req.Location != nil && lobby.Location != nil {
 			p := req.Location.Point()
 			p2 := l.Location.Point()
 			l.Distance = p.GreatCircleDistance(p2)
 		}
 		l.Location = nil
+		l.Service = ""
 		lobbies = append(lobbies, &l)
 	}
 	*resp = ListLobbyResponse{Lobbies: lobbies}

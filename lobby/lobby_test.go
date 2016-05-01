@@ -43,7 +43,7 @@ func TestLobbyRPC(t *testing.T) {
 	}{
 		{
 			"lobby.list",
-			&ListLobbyRequest{},
+			&ListLobbyRequest{Service: "test"},
 			&ListLobbyResponse{},
 			&ListLobbyResponse{},
 			nil,
@@ -62,6 +62,7 @@ func TestLobbyRPC(t *testing.T) {
 				Name:             "Duck",
 				Creator:          "d4l3k",
 				RequiresPassword: true,
+				Service:          "test",
 				Location:         &Location{1, 1},
 			},
 			&NewLobbyResponse{},
@@ -71,8 +72,9 @@ func TestLobbyRPC(t *testing.T) {
 		{
 			"lobby.new",
 			&Lobby{
-				ID:     "2",
-				Hidden: true,
+				ID:      "2",
+				Service: "test",
+				Hidden:  true,
 			},
 			&NewLobbyResponse{},
 			&NewLobbyResponse{},
@@ -80,7 +82,9 @@ func TestLobbyRPC(t *testing.T) {
 		},
 		{
 			"lobby.list",
-			&ListLobbyRequest{},
+			&ListLobbyRequest{
+				Service: "test",
+			},
 			&ListLobbyResponse{},
 			&ListLobbyResponse{
 				Lobbies: []*Lobby{
@@ -96,7 +100,10 @@ func TestLobbyRPC(t *testing.T) {
 		},
 		{
 			"lobby.list",
-			&ListLobbyRequest{Location: &Location{1, 2}},
+			&ListLobbyRequest{
+				Service:  "test",
+				Location: &Location{1, 2},
+			},
 			&ListLobbyResponse{},
 			&ListLobbyResponse{
 				Lobbies: []*Lobby{
@@ -109,6 +116,13 @@ func TestLobbyRPC(t *testing.T) {
 					},
 				},
 			},
+			nil,
+		},
+		{
+			"lobby.list",
+			&ListLobbyRequest{Service: "other service"},
+			&ListLobbyResponse{},
+			&ListLobbyResponse{},
 			nil,
 		},
 		{
@@ -156,7 +170,9 @@ func TestLobbyRPC(t *testing.T) {
 	}{
 		{
 			"lobby.list",
-			&ListLobbyRequest{},
+			&ListLobbyRequest{
+				Service: "test",
+			},
 			&ListLobbyResponse{},
 			&ListLobbyResponse{},
 			nil,
