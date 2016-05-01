@@ -7,9 +7,6 @@ import (
 )
 
 func main() {
-	s, err := lobby.NewServer()
-	if err != nil {
-		log.Fatal(err)
-	}
+	s := lobby.NewServer()
 	log.Fatal(s.Listen(":5000"))
 }

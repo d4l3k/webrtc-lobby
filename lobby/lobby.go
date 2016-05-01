@@ -159,5 +159,6 @@ func (s *Server) Listen(addr string) error {
 		Addr:    addr,
 		Handler: s.mux,
 	}
+	log.Printf("Listening on %s...", addr)
 	return server.ListenAndServe()
 }
