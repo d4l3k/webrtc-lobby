@@ -30,11 +30,11 @@ func (l Location) Point() *geo.Point {
 }
 
 type Lobby struct {
-	ID, Name, Creator string
-	RequiresPassword  bool
-	Location          *Location
-	Distance          float64
-	People, Capacity  int
+	ID, Name, Creator        string
+	Hidden, RequiresPassword bool
+	Location                 *Location
+	Distance                 float64
+	People, Capacity         int
 
 	client *rpc2.Client
 }
@@ -136,6 +136,9 @@ func (s *Server) listLobby(client *rpc2.Client, req *ListLobbyRequest, resp *Lis
 	defer s.lobbiesLock.RUnlock()
 	var lobbies []*Lobby
 	for _, lobby := range s.lobbies {
+		if lobby.Hidden {
+			continue
+		}
 		l := *lobby
 		if req.Location != nil {
 			p := req.Location.Point()

@@ -69,6 +69,16 @@ func TestLobbyRPC(t *testing.T) {
 			nil,
 		},
 		{
+			"lobby.new",
+			&Lobby{
+				ID:     "2",
+				Hidden: true,
+			},
+			&NewLobbyResponse{},
+			&NewLobbyResponse{},
+			nil,
+		},
+		{
 			"lobby.list",
 			&ListLobbyRequest{},
 			&ListLobbyResponse{},
