@@ -106,7 +106,7 @@ type ConnectLobbyRequest struct {
 
 // ConnectLobbyResponse represents the response to a connect request.
 type ConnectLobbyResponse struct {
-	Offer string
+	Answer string
 }
 
 func (s *Server) connectLobby(client *rpc2.Client, req *ConnectLobbyRequest, resp *ConnectLobbyResponse) error {

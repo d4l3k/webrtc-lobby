@@ -30,7 +30,7 @@ func TestLobbyRPC(t *testing.T) {
 		if req.Password != "test" {
 			return ErrNotAuthorized
 		}
-		*resp = ConnectLobbyResponse{Offer: "webrtc offer"}
+		*resp = ConnectLobbyResponse{Answer: "webrtc offer"}
 		return nil
 	})
 
@@ -122,7 +122,7 @@ func TestLobbyRPC(t *testing.T) {
 			"lobby.connect",
 			&ConnectLobbyRequest{ID: "1", Password: "test"},
 			&ConnectLobbyResponse{},
-			&ConnectLobbyResponse{Offer: "webrtc offer"},
+			&ConnectLobbyResponse{Answer: "webrtc offer"},
 			ErrNotAuthorized,
 		},
 	}
