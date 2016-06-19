@@ -8,7 +8,7 @@ import (
 
 	"github.com/cenk/rpc2"
 	"github.com/cenk/rpc2/jsonrpc"
-	"github.com/kellydunn/golang-geo"
+	geo "github.com/kellydunn/golang-geo"
 	"golang.org/x/net/websocket"
 )
 
@@ -60,6 +60,10 @@ func NewServer() *Server {
 	s.rpc.Handle("lobby.connect", s.connectLobby)
 	s.rpc.Handle("lobby.list", s.listLobby)
 	s.rpc.OnDisconnect(s.disconnect)
+
+	s.mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		w.Write([]byte("ok"))
+	})
 
 	return s
 }
