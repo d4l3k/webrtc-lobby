@@ -7,5 +7,10 @@ https://github.com/d4l3k/webrtc-lobby-elements
 
 A hosted copy is provided at `wss://fn.lc/lobby`.
 
+## Running with docker (port 8080)
+```bash
+docker run --restart=always -d -p 8080:5000 d4l3k/webrtc-lobby
+```
+
 ## License
 Licensed under the MIT license.
