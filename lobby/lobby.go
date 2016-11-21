@@ -6,8 +6,8 @@ import (
 	"net/http"
 	"sync"
 
-	"github.com/cenk/rpc2"
-	"github.com/cenk/rpc2/jsonrpc"
+	"github.com/cenkalti/rpc2"
+	"github.com/cenkalti/rpc2/jsonrpc"
 	geo "github.com/kellydunn/golang-geo"
 	"golang.org/x/net/websocket"
 )
