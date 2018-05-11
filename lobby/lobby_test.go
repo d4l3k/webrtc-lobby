@@ -7,8 +7,8 @@ import (
 
 	"golang.org/x/net/websocket"
 
-	"github.com/cenk/rpc2"
-	"github.com/cenk/rpc2/jsonrpc"
+	"github.com/cenkalti/rpc2"
+	"github.com/cenkalti/rpc2/jsonrpc"
 	"github.com/d4l3k/messagediff"
 )
 
